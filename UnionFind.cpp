@@ -36,7 +36,6 @@ int unionFind::Find(int x) {
     while(temp != parent){
         new_temp = parents[temp];
         parents[temp] = parent;
-        dc_array[temp] = parent_dc;
         temp = new_temp;
     }
     return parent;
