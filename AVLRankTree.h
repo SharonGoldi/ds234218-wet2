@@ -224,8 +224,8 @@ TreeStatusType AvlRankTree<KeyType,ValueType>::GetSumHighestRanks(int k, int *ra
         return TREE_INVALID_INPUT;
     }
 
-    // if we are asked for a sum of zero nodes return zero
-    if (k == 0) {
+    // if we are asked for a sum of zero nodes or the tree is empty return zero
+    if (k == 0 || this->sum == 0) {
         *rank = 0;
         return TREE_SUCCESS;
     }
