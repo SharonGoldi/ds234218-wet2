@@ -202,12 +202,17 @@ void AvlRankTree<KeyType,ValueType>::GetSumAux(int k, int *rank,
     }
 
     if(left_node_sum == k - 1) {
-        *rank -= node->left->sum_of_ranks;
+        if (node->left != NULL) {
+            *rank -= node->left->sum_of_ranks;
+        }
     }
     else if (left_node_sum > k - 1) {
         GetSumAux(k, rank, node->left);
     } else {
-        *rank -= node->left->sum_of_ranks + node->rank;
+        *rank -= node->rank;
+        if (node->left != NULL) {
+            *rank -= node->left->sum_of_ranks;
+        }
         GetSumAux(k-left_node_sum-1, rank, node->right);
     }
 }
@@ -216,7 +221,7 @@ template <class KeyType, class ValueType>
 TreeStatusType AvlRankTree<KeyType,ValueType>::GetSumHighestRanks(int k, int *rank) {
 
     if(k < 0 || rank == NULL) {
-        return TREE_ALLOCATION_ERROR;
+        return TREE_INVALID_INPUT;
     }
 
     // if we are asked for a sum of zero nodes return zero
@@ -229,7 +234,7 @@ TreeStatusType AvlRankTree<KeyType,ValueType>::GetSumHighestRanks(int k, int *ra
     *rank = node->sum_of_ranks;
     int index;
     this->Size(&index);
-    index -= k;
+    index -= (k - 1); // index is starting at 1 (not 0)
 
     // if we are asked for a sum of more nodes than the amount in the tree, return the sum of ranks of all the tree
     if (index <= 0) {
