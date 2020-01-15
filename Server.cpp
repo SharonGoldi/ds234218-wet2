@@ -6,7 +6,7 @@ server::server(int serverID, int dataCenterID):
 server::server(server &server) {
     this->serverID = server.serverID;
     this->dataCenterID = server.dataCenterID;
-    this->traffic = server.dataCenterID;
+    this->traffic = server.traffic;
 }
 
 int server::GetDataCenterID() {
