@@ -26,10 +26,10 @@ DCManager::~DCManager() {
     delete servers_tree;
     for (int j = 0; j < numOfDataCenters; ++j) {
         int data_center_id = id_arr[j];
-        if (!is_deleted_by_id[data_center_id]) {
+//        if (!is_deleted_by_id[data_center_id]) {
             delete this->data_centers[j];
-            is_deleted_by_id[data_center_id] = true;
-        }
+//            is_deleted_by_id[data_center_id] = true;
+//        }
     }
     delete[] is_deleted_by_id;
     delete[] id_arr;
@@ -63,11 +63,12 @@ TreeStatusType DCManager::removeServer(int server_id) {
     if (dc_id < 0) {
         return TREE_FAILURE;
     }
-    if (this->h_table->GetTraffic(server_id) > 0 ){
-        this->data_centers[dc_id]->RemoveServer(server_id,this->h_table->GetTraffic(server_id));
+    if (this->h_table->GetTraffic(server_id) > 0 ) {
+        int root = this->groups->Find(dc_id);
+        this->data_centers[root]->RemoveServer(server_id,this->h_table->GetTraffic(server_id));
     }
     this->h_table->DeleteServer(server_id);
-
+    return TREE_SUCCESS;
 }
 
 TreeStatusType DCManager::setTraffic(int server_id, int traffic) {
