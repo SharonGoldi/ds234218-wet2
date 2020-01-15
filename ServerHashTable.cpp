@@ -2,7 +2,7 @@
 #include <cmath>
 #include <new>
 #include <cassert>
-#include "serverHashTable.h"
+#include "ServerHashTable.h"
 
 // basic class funcs
 
@@ -26,8 +26,8 @@ serverHashTable::~serverHashTable() {
     delete[] this->table;
 }
 
-serverHashTable::serverHashTable(serverHashTable &ht) : serversNum(ht.serversNum), deletedCounter(ht.deletedCounter)
-        ,tableSize(ht.tableSize), deletedServer(ht.deletedServer), addCounter(ht.addCounter){
+serverHashTable::serverHashTable(serverHashTable &ht)
+                : serversNum(ht.serversNum), tableSize(ht.tableSize), addCounter(ht.addCounter), deletedServer(ht.deletedServer) {
     this->table = new Server [ht.tableSize];
     for (int i = 0; i< this->tableSize; i++) {
         this->table[i] = ht.table[i];
@@ -221,8 +221,8 @@ int serverHashTable::GetTraffic(int serverID) {
 
 Server serverHashTable::GetServer(int serverID) {
     int index = this->Find(serverID);
-    if (this->Find(serverID) < 0) {
+    if (index < 0) {
         return NULL;
     }
-    return this->table[this->Find(serverID)];
+    return this->table[index];
 }
