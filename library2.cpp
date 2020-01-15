@@ -34,7 +34,7 @@ StatusType MergeDataCenters(void *DS, int dataCenter1, int dataCenter2){
         return INVALID_INPUT;
     }
     DCManager *ds = (DCManager*) DS;
-    return ReplaceEnums(ds->mergeDC(dataCenter1,dataCenter2));
+    return ReplaceEnums(ds->mergeDC(dataCenter1 - 1, dataCenter2 - 1));
 }
 
 StatusType AddServer(void *DS, int dataCenterID, int serverID){
@@ -42,7 +42,7 @@ StatusType AddServer(void *DS, int dataCenterID, int serverID){
         return INVALID_INPUT;
     }
     DCManager *ds = (DCManager*) DS;
-    return ReplaceEnums(ds->addServer(dataCenterID,serverID));
+    return ReplaceEnums(ds->addServer(dataCenterID - 1, serverID));
 
 }
 
@@ -54,12 +54,12 @@ StatusType RemoveServer(void *DS, int serverID){
     return ReplaceEnums(ds->removeServer(serverID));
 }
 
-StatusType SetTraffic(void *DS, int serverID,  int traffic){
+StatusType SetTraffic(void *DS, int serverID, int traffic){
     if (DS == NULL || traffic <= 0 || serverID <= 0){
         return INVALID_INPUT;
     }
     DCManager *ds = (DCManager*) DS;
-    return ReplaceEnums(ds->setTraffic(serverID,traffic));
+    return ReplaceEnums(ds->setTraffic(serverID, traffic));
 }
 
 StatusType SumHighestTrafficServers(void *DS, int dataCenterID,  int k, int *traffic){
@@ -67,7 +67,7 @@ StatusType SumHighestTrafficServers(void *DS, int dataCenterID,  int k, int *tra
         return INVALID_INPUT;
     }
     DCManager *ds = (DCManager*) DS;
-    return ReplaceEnums(ds->sumHighestTraffic(dataCenterID,k,traffic));
+    return ReplaceEnums(ds->sumHighestTraffic(dataCenterID - 1, k , traffic));
 }
 
 void Quit(void** DS){
