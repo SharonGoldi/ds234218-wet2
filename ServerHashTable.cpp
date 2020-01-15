@@ -208,9 +208,21 @@ TreeStatusType serverHashTable::SetTraffic(int serverID, int traffic) {
 }
 
 int serverHashTable::GetDataCenter(int serverID) {
-    return this->table[this->Find(serverID)]->GetDataCenterID();
+    int index = this->Find(serverID); // TODO
+    if (index < 0) {
+        return index;
+    }
+    return this->table[index]->GetDataCenterID();
 }
 
 int serverHashTable::GetTraffic(int serverID) {
     return this->table[this->Find(serverID)]->GetTraffic();
+}
+
+Server serverHashTable::GetServer(int serverID) {
+    int index = this->Find(serverID);
+    if (this->Find(serverID) < 0) {
+        return NULL;
+    }
+    return this->table[this->Find(serverID)];
 }

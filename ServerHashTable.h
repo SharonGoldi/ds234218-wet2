@@ -79,6 +79,7 @@ public:
 
     TreeStatusType AddServer(int serverID, int dataCenterID);
     TreeStatusType DeleteServer(int serverID);
+    Server GetServer(int serverID);
     TreeStatusType SetTraffic(int serverID, int traffic);
     int GetDataCenter(int serverID);
     int GetTraffic(int serverID);
