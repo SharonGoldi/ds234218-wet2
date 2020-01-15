@@ -30,7 +30,6 @@ int unionFind::Find(int x) {
         parent = this->parents[parent];
     }
     parent = old_p;
-    DataCenter parent_dc = dc_array[parent];
     int temp = x;
     int new_temp;
     while(temp != parent){
