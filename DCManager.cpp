@@ -15,24 +15,11 @@ DCManager::DCManager(int n) : numOfDataCenters(n) {
 }
 
 DCManager::~DCManager() {
-    int* id_arr = new int[numOfDataCenters];
-    bool* is_deleted_by_id = new bool[numOfDataCenters];
-    for (int i = 0; i < numOfDataCenters; ++i) {
-        id_arr[i] = this->data_centers[i]->GetID();
-        is_deleted_by_id[i] = false;
-    }
-
     delete this->h_table;
     delete servers_tree;
     for (int j = 0; j < numOfDataCenters; ++j) {
-        int data_center_id = id_arr[j];
-//        if (!is_deleted_by_id[data_center_id]) {
-            delete this->data_centers[j];
-//            is_deleted_by_id[data_center_id] = true;
-//        }
+        delete this->data_centers[j];
     }
-    delete[] is_deleted_by_id;
-    delete[] id_arr;
     delete[] this->data_centers;
     delete this->groups;
 }

@@ -71,7 +71,3 @@ TreeStatusType MergeDataCenters (dataCenter& a, const dataCenter& b){
     delete [] array;
     return TREE_SUCCESS;
 }
-
-int dataCenter::GetID() {
-    return dataCenterID;
-}
