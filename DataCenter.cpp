@@ -35,9 +35,11 @@ TreeStatusType dataCenter::SetTraffic(int serverID, int traffic) {
 TreeStatusType dataCenter::UpdateTraffic(int serverID, int dataCenterID, int old_traffic, int new_traffic){
     Server old_server_node = new server(serverID, dataCenterID);
     old_server_node->SetTraffic(old_traffic);
+
     this->trafficSumTree->Delete(*old_server_node);
     old_server_node->SetTraffic(new_traffic);
     TreeStatusType status = this->trafficSumTree->Add(*old_server_node, new_traffic);
+
     delete old_server_node;
     return status;
 }
@@ -58,13 +60,18 @@ TreeStatusType MergeDataCenters (dataCenter& a, const dataCenter& b){
             for (int j = 0; j < i ; j++) {
                 a.trafficSumTree->Delete(*(array[i]->key));
             }
+            delete [] array;
             return status;
         }
     }
     // delete the b tree node
     for(int i = 0; i < b_size; i++) {
         b.trafficSumTree->Delete(*(array[i]->key));
-
     }
+    delete [] array;
     return TREE_SUCCESS;
+}
+
+int dataCenter::GetID() {
+    return dataCenterID;
 }
