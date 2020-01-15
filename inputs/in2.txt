@@ -1,0 +1,14 @@
+Init 10
+AddServer 1 1
+AddServer 2 1
+AddServer 2 2
+SetTraffic 1 10
+SetTraffic 2 20
+SumHighestTrafficServers 1 2
+SumHighestTrafficServers 2 2
+SumHighestTrafficServers 0 2
+MergeDataCenters 1 2
+SumHighestTrafficServers 1 2
+SumHighestTrafficServers 2 2
+SumHighestTrafficServers 0 2
+Quit

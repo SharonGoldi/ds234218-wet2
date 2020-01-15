@@ -46,7 +46,7 @@ TreeStatusType dataCenter::SumHighestTrafficServers(int k, int *traffic) {
     return this->trafficSumTree->GetSumHighestRanks(k, traffic);
 }
 
-TreeStatusType MergeDataCenters (dataCenter a, const dataCenter b){
+TreeStatusType MergeDataCenters (dataCenter& a, const dataCenter& b){
     int b_size;
     b.trafficSumTree->Size(&b_size);
     Node<server, int>** array = new Node<server, int>*[b_size];

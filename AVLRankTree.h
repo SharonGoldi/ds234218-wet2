@@ -164,6 +164,14 @@ class AvlRankTree{
      * @return - a pointer to the next node
      */
     Node<KeyType,ValueType>* GetNextInOrder(Node<KeyType,ValueType>* node);
+    /**
+     * finds the rank sum of the k highest nodes, aux func/ needs to be init with the root of the tree
+     * @param k - the index of the node we need to find
+     * @param rank - a pointer for the sum of ranks val
+     * @param node - the root node for the recorsive run
+     * @return
+     */
+    void GetSumAux(int k, int* rank,Node<KeyType,ValueType>* node);
 
 public:
     AvlRankTree<KeyType,ValueType>();
@@ -184,7 +192,51 @@ public:
 };
 /****************************************************************************/
 template <class KeyType, class ValueType>
+void AvlRankTree<KeyType,ValueType>::GetSumAux(int k, int *rank,
+                                               Node<KeyType, ValueType> *node) {
+    int left_node_sum;
+    if (node->left != NULL) {
+        left_node_sum = node->left->sum_of_nodes;
+    } else {
+        left_node_sum = 0;
+    }
+
+    if(left_node_sum == k - 1) {
+        *rank -= node->left->sum_of_ranks;
+    }
+    else if (left_node_sum > k - 1) {
+        GetSumAux(k, rank, node->left);
+    } else {
+        *rank -= node->left->sum_of_ranks + node->rank;
+        GetSumAux(k-left_node_sum-1, rank, node->right);
+    }
+}
+
+template <class KeyType, class ValueType>
 TreeStatusType AvlRankTree<KeyType,ValueType>::GetSumHighestRanks(int k, int *rank) {
+
+    if(k < 0 || rank == NULL) {
+        return TREE_ALLOCATION_ERROR;
+    }
+
+    // if we are asked for a sum of zero nodes return zero
+    if (k == 0) {
+        *rank = 0;
+        return TREE_SUCCESS;
+    }
+
+    Node<KeyType,ValueType>* node = this->root->right;
+    *rank = node->sum_of_ranks;
+    int index;
+    this->Size(&index);
+    index -= k;
+
+    // if we are asked for a sum of more nodes than the amount in the tree, return the sum of ranks of all the tree
+    if (index <= 0) {
+        return TREE_SUCCESS;
+    }
+
+    GetSumAux(index, rank, node);
     return TREE_SUCCESS;
 }
 
@@ -360,13 +412,11 @@ void AvlRankTree<KeyType,ValueType>::UpdateHeightAndRank(Node<KeyType,ValueType>
         node->height = 0;
         node->sum_of_ranks = node->rank;
         node->sum_of_nodes = 1;
-    }
-    else if (node->right == NULL) {
+    } else if (node->right == NULL) {
         node->height = 1 + node->left->height;
         node->sum_of_ranks = node->rank + node->left->sum_of_ranks;
         node->sum_of_nodes = 1 + node->left->sum_of_nodes;
-    }
-    else if (node->left == NULL) {
+    } else if (node->left == NULL) {
         node->height = 1 + node->right->height;
         node->sum_of_ranks = node->rank + node->right->sum_of_ranks;
         node->sum_of_nodes = 1 + node->right->sum_of_nodes;

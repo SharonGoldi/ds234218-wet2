@@ -1,0 +1,13 @@
+init done.
+AddServer: SUCCESS
+AddServer: FAILURE
+AddServer: SUCCESS
+SetTraffic: SUCCESS
+SetTraffic: SUCCESS
+SumHighestTrafficServers: 10
+SumHighestTrafficServers: 20
+SumHighestTrafficServers: 30
+MergeDataCenters: SUCCESS
+SumHighestTrafficServers: 30
+SumHighestTrafficServers: 30
+SumHighestTrafficServers: 30

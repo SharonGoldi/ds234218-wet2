@@ -21,7 +21,7 @@ public:
     void RemoveServer(int serverID, int traffic);
     TreeStatusType SumHighestTrafficServers(int k, int* traffic);
     // merges the b tree to the a tree, and erase every node in the b tree
-    friend TreeStatusType MergeDataCenters (dataCenter a, const dataCenter b);
+    friend TreeStatusType MergeDataCenters (dataCenter& a, const dataCenter& b);
 };
  typedef dataCenter *DataCenter;
 
