@@ -1,17 +1,22 @@
 
 #include "UnionFind.h"
 
-unionFind::unionFind(int size,DataCenter *dc_array):size(size),dc_array(dc_array){
+unionFind::unionFind(int size, DataCenter *dc_array):size(size),dc_array(dc_array){
     size_ = new int [size];
     parents = new int [size];
-    for (int i = 1; i < size; ++i) {
+
+    for (int i = 0; i < size; ++i) {
         parents[i] = -1;
         size_[i] = 0;
     }
 }
+
 unionFind::~unionFind() {
     this->dc_array = NULL;
+    delete [] size_;
+    delete [] parents;
 }
+
 void unionFind::Makeset(int x) {
     this->parents[x] = -1;
     this->size_[x] = 1;
