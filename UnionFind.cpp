@@ -38,42 +38,42 @@ int unionFind::Find(int x) {
 }
 
 void unionFind::Union(int p, int q) {
-    if ( size_[p] > size_[q]){
+    if ( size_[p] > size_[q]) {
         size_[p] += size_[q];
         size_[q]=0;
         parents[q] = p;
         MergeDataCenters(*dc_array[p], *dc_array[q]);
-//        DataCenter old_dc = dc_array[q];
+
+//        merged_dc_to_delete[q] = dc_array[q];
 //        dc_array[q] = dc_array[p];
-//        delete old_dc;
     }
-    else if (size_[p] < size_[q]){
+    else if (size_[p] < size_[q]) {
         size_[q] += size_[p];
-        size_[p]=0;
+        size_[p] = 0;
         parents[p] = q;
         MergeDataCenters(*dc_array[q], *dc_array[p]);
-        DataCenter old_dc = dc_array[p];
-        dc_array[p] = dc_array[q];
-        delete old_dc;
+
+//        merged_dc_to_delete[p] = dc_array[p];
+//        dc_array[p] = dc_array[q];
     }
     else {
-        if (p > q){
+        if (p > q) {
             size_[p] += size_[q];
             size_[q]=0;
             parents[q] = p;
             MergeDataCenters(*dc_array[p], *dc_array[q]);
-            DataCenter old_dc = dc_array[q];
-            dc_array[q] = dc_array[p];
-            delete old_dc;
+
+//            merged_dc_to_delete[q] = dc_array[q];
+//            dc_array[q] = dc_array[p];
         }
         else {
             size_[q] += size_[p];
-            size_[p]=0;
+            size_[p] = 0;
             parents[p] = q;
             MergeDataCenters(*dc_array[q],*dc_array[p]);
-            DataCenter old_dc = dc_array[p];
-            dc_array[p] = dc_array[q];
-            delete old_dc;
+
+//            merged_dc_to_delete[p] = dc_array[p];
+//            dc_array[p] = dc_array[q];
         }
     }
 }
@@ -89,7 +89,7 @@ void unionFind::print() {
     }
     printf("]\n");
     printf("size : [");
-    for (int j = 0; j < size ; ++j) {
+    for (int j = 0; j < size; ++j) {
         if (j == size-1){
             printf("%d",this->size_[j]);
         }
