@@ -55,7 +55,7 @@ StatusType RemoveServer(void *DS, int serverID){
 }
 
 StatusType SetTraffic(void *DS, int serverID, int traffic){
-    if (DS == NULL || traffic <= 0 || serverID <= 0){
+    if (DS == NULL || traffic < 0 || serverID <= 0){
         return INVALID_INPUT;
     }
     DCManager *ds = (DCManager*) DS;

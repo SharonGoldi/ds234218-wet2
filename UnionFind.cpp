@@ -41,6 +41,7 @@ int unionFind::Find(int x) {
 }
 
 void unionFind::Union(int p, int q) {
+    if (p == q) return;
     if ( size_[p] > size_[q]) {
         size_[p] += size_[q];
         size_[q]=0;
